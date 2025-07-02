@@ -43,9 +43,30 @@
       font-size: 14px;
       color: #555;
     }
+    #progress-container {
+  width: 100%;
+  background: #ddd;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  height: 20px;
+  overflow: hidden;
+}
+#progress-bar {
+  height: 100%;
+  background: #4caf50;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
   </style>
 </head>
 <body>
+  <body>
+  <div id="progress-container">
+    <div id="progress-bar"></div>
+  </div>
+
+  
 
   <h1>🚀 Juspay SDE Hiring Challenge<br>Ultimate Study Tracker</h1>
 
@@ -282,7 +303,39 @@
     </div>
   </div>
 
+  
   <footer>🚀 Track daily. Tiny checks make a BIG difference! Good luck! 🌟</footer>
+
+<script>
+  // Select all checkboxes
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+  // Load saved state from localStorage
+  checkboxes.forEach((checkbox, index) => {
+    const checked = localStorage.getItem('checkbox_' + index);
+    checkbox.checked = checked === 'true';
+  });
+
+  // Save state when a checkbox is changed and update progress
+  checkboxes.forEach((checkbox, index) => {
+    checkbox.addEventListener('change', () => {
+      localStorage.setItem('checkbox_' + index, checkbox.checked);
+      updateProgress();
+    });
+  });
+
+  function updateProgress() {
+    const total = checkboxes.length;
+    const checked = Array.from(checkboxes).filter(c => c.checked).length;
+    const percent = (checked / total) * 100;
+    document.getElementById('progress-bar').style.width = percent + '%';
+  }
+
+  // Initial progress bar update
+  updateProgress();
+</script>
+
+</body>
 
 </body>
 </html>
